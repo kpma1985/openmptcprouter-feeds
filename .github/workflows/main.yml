@@ -2,15 +2,15 @@ name: openmptcprouter
 on: [push]
 
 env:
-  REPO_URL: 'https://github.com/kpma1985/openmptcprouter'
+  REPO_URL: 'https://github.com/ysurac/openmptcprouter'
 
 jobs:
   build:
     strategy:
       matrix:
-        OMR_TARGET: [ax9000]
-        OMR_KERNEL: [5.4]
-    runs-on: ubuntu-latest
+        OMR_TARGET: [rpi4, x86, x86_64, r4s, r5s]
+        OMR_KERNEL: [5.4, 6.1]
+    runs-on: self-hosted
     continue-on-error: true
 
     steps:
