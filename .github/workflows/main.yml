@@ -39,7 +39,7 @@ jobs:
     - name: Clone source code
       working-directory: ../../
       env: 
-        REPO_URL: https://github.com/kpma1985/openmptcprouter
+        REPO_URL: https://github.com/ysurac/openmptcprouter
         SOURCE_NAME: ${{ steps.branch_name.outputs.SOURCE_NAME }}
         GITHUB_WORKSPACE: ${{ steps.branch_name.outputs.WORKSPACE }}
       run: |
@@ -58,7 +58,7 @@ jobs:
     - name: Build toolchain
       working-directory: ../../omr
       env:
-        OMR_FEED_URL: https://github.com/kpma1985/openmptcprouter-feeds
+        OMR_FEED_URL: https://github.com/ysurac/openmptcprouter-feeds
         SOURCE_NAME: ${{ steps.branch_name.outputs.SOURCE_NAME }}
         OMR_TARGET: ${{ matrix.OMR_TARGET }}
         OMR_KERNEL: ${{ matrix.OMR_KERNEL }}
@@ -89,7 +89,7 @@ jobs:
         path: /home/runner/work/omr/${{ matrix.OMR_TARGET }}/${{ matrix.OMR_KERNEL }}/source/bin
     - if: steps.branch_name.outputs.SOURCE_BRANCH == ''
       name: Deploy - Create directory
-      uses: kpma1985/ssh-action@master
+      uses: ysurac/ssh-action@master
       env:
           SOURCE_NAME: ${{ steps.branch_name.outputs.SOURCE_NAME }}
           SOURCE_BRANCH: ${{ steps.branch_name.outputs.SOURCE_BRANCH }}
@@ -104,7 +104,7 @@ jobs:
         args: -tt
     - if: steps.branch_name.outputs.SOURCE_BRANCH != ''
       name: Deploy - Create directory
-      uses: kpma1985/ssh-action@master
+      uses: ysurac/ssh-action@master
       env:
           SOURCE_NAME: ${{ steps.branch_name.outputs.SOURCE_NAME }}
           SOURCE_BRANCH: ${{ steps.branch_name.outputs.SOURCE_BRANCH }}
@@ -127,7 +127,7 @@ jobs:
         mv ${OMR_TARGET}/${OMR_KERNEL}/source/bin ${GITHUB_WORKSPACE}/
     - if: steps.branch_name.outputs.SOURCE_BRANCH == ''
       name: Deploy - Upload via rsync
-      uses: kpma1985/action-rsync@master
+      uses: ysurac/action-rsync@master
       env:
         ARGS: -av --delete-after
         TARGET: deploy/release/${{steps.branch_name.outputs.SOURCE_TAG}}/${{matrix.OMR_TARGET}}
@@ -142,7 +142,7 @@ jobs:
         GITHUB_WORKSPACE: ${{ steps.branch_name.outputs.WORKSPACE }}
     - if: steps.branch_name.outputs.SOURCE_BRANCH != ''
       name: Deploy - Upload via rsync
-      uses: kpma1985/action-rsync@master
+      uses: ysurac/action-rsync@master
       env:
         ARGS: -av --delete-after
         TARGET: deploy/${{ steps.branch_name.outputs.SOURCE_BRANCH }}/${{matrix.OMR_KERNEL}}/${{matrix.OMR_TARGET}}
