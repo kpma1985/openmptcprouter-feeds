@@ -8,8 +8,8 @@ jobs:
   build:
     strategy:
       matrix:
-        OMR_TARGET: [rpi4, x86, x86_64, r4s, r5s]
-        OMR_KERNEL: [5.4, 6.1]
+        OMR_TARGET: [ax9000]
+        OMR_KERNEL: [5.4]
     runs-on: ubuntu-latest
     continue-on-error: true
 
